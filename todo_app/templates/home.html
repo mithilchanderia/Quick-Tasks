@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+  {% block title %}
+    ToDo-Home
+  {% endblock %}
+  {% block content %}
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+    {% if list_items %}
+      <table class='table table-bordered'>
+      {% for items in list_items %}
+        {% if items.status == True %}
+          <tr class='table-success'>
+            <td class='striker'><a href="{% url 'edit' items.id %}">{{ items.item }}</a></td>
+            <td><a href="{% url 'cross_off' items.id %}">UnCross</a></td>
+            <td><a href="{% url 'delete' items.id %}">Delete</a></td>
+          </tr>
+        {% else %}
+          <tr class='table-danger'>
+            <td><a href="{% url 'edit' items.id %}">{{ items.item }}</a></td>
+            <td><a href="{% url 'cross_on' items.id%}">Cross Off</a></td>
+            <td><a href="{% url 'delete' items.id %}">Delete</a></td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      </table>
+    {% endif %}
+  {% endblock %}
